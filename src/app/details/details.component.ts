@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p>
-      details works!
-    </p>
+    <article>
+    <!-- <img class="listing-photo" [src]="housingLocationId"> -->
+    <p>Details page works {{housingLocationId}}</p>
+    </article>
   `,
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent {
+  route: ActivatedRoute = inject(ActivatedRoute);
+  housingLocationId = 0;
 
+  constructor(){
+    this.housingLocationId = Number(this.route.snapshot.paramMap.get('id'));
+  }
 }
